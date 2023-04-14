@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import AddPlayer from './components/AddPlayer.vue';
 import GameBoard from './components/GameBoard.vue';
 </script>
 
 <template>
  <main>
   <h1>Tic Tac Toe</h1>
+  <div class="player-form">
+  <AddPlayer></AddPlayer>
+  </div>
   <div class="gamecontainer">
   <GameBoard></GameBoard>
   </div>
@@ -26,6 +30,11 @@ h1 {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px;
   font-size: 6rem;
+}
+.player-form {
+display: flex;
+place-content: center;
+margin-bottom: 20px;
 }
 .gamecontainer {
   display: flex;
