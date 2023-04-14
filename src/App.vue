@@ -5,6 +5,9 @@ import GameBoard from './components/GameBoard.vue';
 <template>
  <main>
   <h1>Tic Tac Toe</h1>
+  <div class="gamecontainer">
+  <GameBoard></GameBoard>
+  </div>
  </main>
 </template>
 
@@ -23,5 +26,9 @@ h1 {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px;
   font-size: 6rem;
+}
+.gamecontainer {
+  display: flex;
+  place-content: center;
 }
 </style>
