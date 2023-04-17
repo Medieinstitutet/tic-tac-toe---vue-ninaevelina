@@ -49,15 +49,14 @@ const calculateWinner = () => {
 const board = ref(gameState.value.board);
 const playerSymbol = ref('X');
 
+
 const markSquare = (i:number) => {
     const gameBoard = board.value.slice();
     gameBoard[i] = playerSymbol.value;
     board.value = gameBoard;
     playerSymbol.value === 'X' ? (playerSymbol.value = 'O') : (playerSymbol.value = 'X');
-    console.log(gameBoard[i]);
     gameState.value.board[i] = playerSymbol.value;
     calculateWinner();
-    console.log(gameState.value.board);
 }
 
 const newGame = () => {
