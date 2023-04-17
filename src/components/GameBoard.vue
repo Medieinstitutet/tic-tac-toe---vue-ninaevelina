@@ -3,8 +3,6 @@ import { ref } from 'vue'
 import { GameBoardState } from "../models/GameBoardState";
 import { Player } from "../models/Player";
 
-
-
 const gameState = ref<GameBoardState>({
     players: [],
     gameActive: true,
@@ -12,23 +10,6 @@ const gameState = ref<GameBoardState>({
     currentPlayer: new Player(0, "X", 0), 
 });
 
-/*
-const symbol = ref("X");
-
-const emit = defineEmits(["addPlayer"])
-
-const addPlayer = () => {
-    emit('addPlayer', symbol.value);
-    symbol.value = "X";
-}
-*/
-// Winning combinations connected to array index
-
-// Add two players - X and O
-
-// No more draws when a winning combination is set
-
-// Fn for starting new round
 
 const board = ref(gameState.value.board);
 const playerSymbol = ref('X');
@@ -39,16 +20,28 @@ const markSquare = (i:number) => {
     board.value = gameBoard;
     playerSymbol.value === 'X' ? (playerSymbol.value = 'O') : (playerSymbol.value = 'X');
     console.log(gameBoard[i]);
-   // playerSymbol.value = "X";
+    gameState.value.board[i] = playerSymbol.value;
+    console.log(gameState.value.board);
 }
 
+const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
 
 </script>
 
 <template>
     <div class="gameboard">
-        <div class="square" v-for="(board, index) in gameState?.board" :board="board" :index="index">
-        <button @click.once="markSquare(index)" class="mark"></button>
+        <div class="square" v-for="(board, index) in gameState?.board" :board="board" :index="index" @click.once="markSquare(index)">
+       <p v-if="gameState.board[index] === 'X'"> X </p>
+       <p v-if="gameState.board[index] === 'O'"> O </p>
     </div>
     </div>
   
@@ -78,6 +71,10 @@ const markSquare = (i:number) => {
     width: 100%;
     background-color: transparent;
     border: none;
+}
+p {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
 }
 
 </style>
