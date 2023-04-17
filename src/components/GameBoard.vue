@@ -15,36 +15,46 @@ const calculateWinner = () => {
     // Check first row
     if (board[0] === board[1] && board[1] === board[2]) {
         console.log('first row');
+        gameState.value.gameActive = false;
         
     }
     if (board[3] === board[4] && board[4] === board[5]) {
         console.log('second row');
+        gameState.value.gameActive = false;
        
     }
     if (board[6] === board[7] && board[7] === board[8]) {
         console.log('third row');
+        gameState.value.gameActive = false;
        
     }
     if (board[0] === board[3] && board[3] === board[6]) {
         console.log('1st column');
+        gameState.value.gameActive = false;
         
     }
     if (board[1] === board[4] && board[4] === board[7]) {
         console.log('2nd column');
+        gameState.value.gameActive = false;
         
     }
     if (board[2] === board[5] && board[5] === board[8]) {
         console.log('3rd column');
+        gameState.value.gameActive = false;
         
     }
     if (board[0] === board[4] && board[4] === board[8]) {
         console.log('1st diag');
+        gameState.value.gameActive = false;
         
     }
     if (board[2] === board[4] && board[4] === board[6]) {
         console.log('2nd diag');
         console.log('winner is' + board[2]);
         console.log(playerSymbol.value);
+        gameState.value.currentPlayer.symbol === board[2];
+        console.log(board[2]);
+        gameState.value.gameActive = false;
         return playerSymbol.value;
         
         
@@ -112,11 +122,15 @@ const winningCombos = [
 
 <template>
     <div class="gameboard">
-        <div class="square" v-for="(board, index) in gameState?.board" :board="board" :index="index" @click.once="markSquare(index)">
+        <div class="square" v-for="(board, index) in gameState?.board" :board="board" :index="index" @click.once="markSquare(index)" v-if="gameState.gameActive === true">
        <p v-if="gameState.board[index] === 'X'"> X </p>
        <p v-if="gameState.board[index] === 'O'"> O </p>
     </div>
     </div>
+    <div>
+        <p v-if="gameState.gameActive === false">Game over! The winner is</p>
+    </div>
+    
   
 </template>
 
