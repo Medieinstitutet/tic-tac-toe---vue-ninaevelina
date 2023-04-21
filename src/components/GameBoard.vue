@@ -2,13 +2,66 @@
 import { ref } from 'vue'
 import { GameBoardState } from "../models/GameBoardState";
 import { Player } from "../models/Player";
+import AddPlayer from './AddPlayer.vue';
 
 const gameState = ref<GameBoardState>({
     players: [],
     gameActive: true,
     board: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"],
-    currentPlayer: new Player("", "X", 0), 
+    currentPlayer: "X", 
 });
+
+const players = ref(gameState.value.players);
+/*
+function setToLS(players: Player[]) {
+    localStorage.setItem("players", JSON.stringify(players));
+}*/
+
+const submitPlayer = (player: string) => {
+   // players.value.push(new Player(player, symbol));
+    //setToLS(gameState.value.players);
+    let symbol = 'X';
+
+    if (gameState.value.players.length > 0) {
+        symbol = 'O';
+    }
+
+    gameState.value.players.push((new Player(player, symbol)));
+    console.log(gameState.value.players);
+/*
+    if (gameState.value.players.length === 1) {
+        gameState.value.players.push(new Player(player, 'O'));
+    }*/
+/*
+    if (gameState.value.players.length === 1 && gameState.value.players[0].symbol === 'X') {
+       gameState.value.players.push((new Player(player, '0')));
+       gameState.value.players.push(new Player(player, symbol));
+       console.log(gameState.value.players);
+       //gameState.value.players[1].symb === 'O';
+    }
+*/
+   //console.log(gameState.value.players);
+/*
+    if (gameState.value.players[0].symbol === 'X') {
+        gameState.value.players[1].symbol === 'O';
+    };*/
+    //console.log(players);
+   // gameState.value.players.push(new Player(player, symbol));
+    //console.log(gameState.value.players);
+
+
+}
+/*
+const choosePlayer = () => {
+    const player = gameState.value.currentPlayer;
+    console.log(player);
+}*/
+
+const startGame = () => {
+    if (gameState.value.players.length === 2) {
+        gameState.value.gameActive = true;
+    }
+}
 
 const calculateWinner = () => {
     const board = gameState.value.board;
@@ -46,17 +99,46 @@ const calculateWinner = () => {
 
 }
 
-const board = ref(gameState.value.board);
-const playerSymbol = ref('X');
+//const board = ref(gameState.value.board);
+//const playerSymbol = ref(gameState.value.players);
 
 
 const markSquare = (i:number) => {
-    const gameBoard = board.value.slice();
+   /* const gameBoard = board.value.slice();
     gameBoard[i] = playerSymbol.value;
     board.value = gameBoard;
     playerSymbol.value === 'X' ? (playerSymbol.value = 'O') : (playerSymbol.value = 'X');
+    console.log(gameState.value.currentPlayer);
     gameState.value.board[i] = playerSymbol.value;
-    calculateWinner();
+    calculateWinner();*/
+    //const gameBoard = gameState.value.board.slice();
+    //gameState.value.players[i].symbol
+    //const playerSymbol = gameState.value.players[i].symbol;
+    gameState.value.board[i] = gameState.value.currentPlayer;
+    if (gameState.value.currentPlayer === 'X') {
+        gameState.value.currentPlayer = 'O'
+    }
+    else if (gameState.value.currentPlayer === 'O') {
+        gameState.value.currentPlayer = 'X'
+    }
+
+   
+    //gameState.value.players[i].symbol;
+    console.log(gameState.value);
+
+    
+    //gameBoard = players.value[i]
+    //const gameBoard = board.value.slice();
+    //console.log(gameBoard);
+    
+    //board.value = gameBoard;
+    //console.log(gameState.value.players[i]);
+
+   
+    //gameState.value.board[i] = playerSymbol[i];
+    //console.log(gameBoard);
+    //gameState.value.players[i].symbol === 'X' ? (playerSymbol.symbol = 'O') : (playerSymbol.symbol = 'X');
+    //console.log(playerSymbol[i]);
 }
 
 const newGame = () => {
@@ -67,23 +149,32 @@ const newGame = () => {
 </script>
 
 <template>
-    <div class="gameboard">
-        <div class="square" v-for="(board, index) in gameState?.board" :board="board" :index="index" @click.once="markSquare(index)" v-if="gameState.gameActive === true">
+    <div class="playerform">
+    <AddPlayer @add-player="submitPlayer"></AddPlayer>
+    </div>
+    <div class="gameboard" v-if="gameState.gameActive === true">
+        <div class="square" v-for="(board, index) in gameState.board" @click.once="markSquare(index)">
        <p v-if="gameState.board[index] === 'X'"> X </p>
        <p v-if="gameState.board[index] === 'O'"> O </p>
     </div>
-    <div class="gameover">
-        <p v-if="gameState.gameActive === false">Game over</p>
-        <button v-if="gameState.gameActive === false" @click="newGame">Play again</button>
     </div>
+    <div class="gameover" v-if="gameState.gameActive === false">
+        <p>Game over</p>
+        <button @click="newGame">Play again</button>
     </div>
-    
+
     
   
 </template>
 
 <style scoped>
 
+.playerform {
+    display: inline-block;
+    margin-right: 20px;
+    justify-content: center;
+    place-content: center;
+}
 .gameboard {
   display: inline-block;
   width: 200px;

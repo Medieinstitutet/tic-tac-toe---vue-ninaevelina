@@ -7,7 +7,7 @@ import GameBoard from './components/GameBoard.vue';
  <main>
   <h1>Tic Tac Toe</h1>
   <div class="player-form">
-  <!-- <AddPlayer></AddPlayer> -->
+  <!--<AddPlayer></AddPlayer>-->
   </div>
   <div class="gamecontainer">
   <GameBoard></GameBoard>

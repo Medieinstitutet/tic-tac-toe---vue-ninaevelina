@@ -1,27 +1,54 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
+import { Player } from '../models/Player';
+import { GameBoardState } from "../models/GameBoardState";
+/*
+const gameState = ref<GameBoardState>({
+    players: [],
+    gameActive: true,
+    board: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"],
+    currentPlayer: new Player("", "X"), 
+});*/
+//const symbol = ref("");
+const name = ref("");
+//const players = ref(gameState.value.players);
 
+//const players = ref<Player[]>(JSON.parse(localStorage.getItem("players") || "[]"));
 
-const symbol = ref("X");
-const player = ref("")
 
 
 const emit = defineEmits(["addPlayer"])
-
+/*
 const addPlayer = () => {
-    emit('addPlayer', player.value);
-    symbol.value = "X";
+    emit('addPlayer', player.value, symbol.value);
     player.value = "";
-    console.log(player.value);
+    symbol.value = "";*/
+    //players.value.push(new Player(player))
+    //console.log(player.value);
+   // console.log(players.value);
+   /* if (gameState.value.players[0].symbol === 'X') {
+        gameState.value.players[1].symbol === 'O';
+    }*/
+/*
+    if (players.value[0].symbol === 'X') {
+        symbol.value === 'O';
+    }*/
 
+
+
+//}
+
+const handleClick = (name: string) => {
+    emit('addPlayer', name);
 }
 
 </script>
 
 <template>
-    <form @submit.prevent="addPlayer">
-    <input v-model="player" type="text"/>
+    <form @submit.prevent="handleClick(name)">
+    <input v-model="name" type="text"/>
+   <!--- <input v-model="symbol" type="text"/> -->
     <button>+</button>
     </form>
 </template>
