@@ -5,7 +5,10 @@ export class GameBoardState {
         public players: Player[],
         public board: string[],
         public currentPlayer: string,
-        public gameActive: boolean
+        public drawCount: number,
+        public gameActive: boolean,
+        public winner: Player,
+        public isDraw: boolean,
     ) {}
     
 }
