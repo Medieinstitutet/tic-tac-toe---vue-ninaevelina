@@ -6,7 +6,7 @@ import AddPlayer from './AddPlayer.vue';
 
 const gameState = ref<GameBoardState>({
     players: [],
-    gameActive: true,
+    gameActive: false,
     board: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"],
     currentPlayer: "X",
     drawCount: 0,
@@ -18,10 +18,13 @@ const players = ref(gameState.value.players);
 
 
 const submitPlayer = (player: string) => {
+
+    
     let symbol = 'X';
 
     if (gameState.value.players.length > 0) {
         symbol = 'O';
+        gameState.value.gameActive = true;
     }
 
     gameState.value.players.push((new Player(player, symbol)));
@@ -31,24 +34,17 @@ const submitPlayer = (player: string) => {
 }
 
 
-const startGame = () => {
-    if (gameState.value.players.length === 2) {
-        gameState.value.gameActive = true;
-    }
-}
-
 const endGame = () => {
     gameState.value.gameActive = false;
-    //Kolla draw?
-    // Kolla winner
 
    if (gameState.value.currentPlayer === 'X') {
     gameState.value.winner.name = gameState.value.players[1].name;
     gameState.value.winner.symbol = gameState.value.players[1].symbol;
+    
    } else if (gameState.value.currentPlayer === 'O'){
     gameState.value.winner.name = gameState.value.players[0].name;
     gameState.value.winner.symbol = gameState.value.players[0].symbol;
-
+    
    }
    console.log(gameState.value);
 }
@@ -86,13 +82,22 @@ const calculateWinningCombos = () => {
     if (board[2] === board[4] && board[4] === board[6]) {
         endGame();
     }
+    if (gameState.value.drawCount > 8) {
+        gameState.value.isDraw = true;
+        gameState.value.gameActive = false;
+        //endGame();
+    }
+
+
 
 }
 
 
 const markSquare = (i:number) => {
-  
+
+    gameState.value.drawCount++;
     gameState.value.board[i] = gameState.value.currentPlayer;
+
     if (gameState.value.currentPlayer === 'X') {
         gameState.value.currentPlayer = 'O'
     }
@@ -100,7 +105,8 @@ const markSquare = (i:number) => {
         gameState.value.currentPlayer = 'X'
     }
 
-    console.log(gameState.value);   
+    console.log(gameState.value);  
+   
     calculateWinningCombos();
 }
 
@@ -112,7 +118,7 @@ const newGame = () => {
 </script>
 
 <template>
-    <div class="playerform">
+    <div class="playerform" v-if="gameState.players.length < 3 && gameState.gameActive === false && gameState.isDraw !== true && gameState.winner.name === ''">
     <AddPlayer @add-player="submitPlayer"></AddPlayer>
     </div>
     <div class="gameboard" v-if="gameState.gameActive === true">
@@ -121,9 +127,10 @@ const newGame = () => {
        <p v-if="gameState.board[index] === 'O'"> O </p>
     </div>
     </div>
-    <div class="gameover" v-if="gameState.gameActive === false">
+    <div class="gameover" v-if="gameState.gameActive === false && gameState.players.length > 1">
         <p>Game over</p>
-        <p v-if="gameState.winner.name !== '' ">The winner is {{ gameState.winner.name }} a.k.a {{ gameState.winner.symbol }}</p>
+        <p v-if="gameState.isDraw === true"> It's a draw!</p>
+        <p v-if="gameState.winner.name !== ''">The winner is {{ gameState.winner.name }} a.k.a {{ gameState.winner.symbol }}</p>
         <button @click="newGame">Play again</button>
     </div>
 
