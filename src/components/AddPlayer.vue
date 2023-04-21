@@ -1,20 +1,10 @@
 <script setup lang="ts">
 
 import { ref } from 'vue';
-import { Player } from '../models/Player';
-import { GameBoardState } from "../models/GameBoardState";
-/*
-const gameState = ref<GameBoardState>({
-    players: [],
-    gameActive: true,
-    board: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"],
-    currentPlayer: new Player("", "X"), 
-});*/
-//const symbol = ref("");
-const name = ref("");
-//const players = ref(gameState.value.players);
 
-//const players = ref<Player[]>(JSON.parse(localStorage.getItem("players") || "[]"));
+
+const name = ref("");
+
 
 
 
