@@ -8,7 +8,10 @@ const gameState = ref<GameBoardState>({
     players: [],
     gameActive: true,
     board: ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth"],
-    currentPlayer: "X", 
+    currentPlayer: "X",
+    drawCount: 0,
+    winner: {name: "", symbol: ""},
+    isDraw: false,
 });
 
 const players = ref(gameState.value.players);
@@ -34,43 +37,57 @@ const startGame = () => {
     }
 }
 
-const calculateWinner = () => {
+const endGame = () => {
+    gameState.value.gameActive = false;
+    //Kolla draw?
+    // Kolla winner
+
+   if (gameState.value.currentPlayer === 'X') {
+    gameState.value.winner.name = gameState.value.players[1].name;
+    gameState.value.winner.symbol = gameState.value.players[1].symbol;
+   } else if (gameState.value.currentPlayer === 'O'){
+    gameState.value.winner.name = gameState.value.players[0].name;
+    gameState.value.winner.symbol = gameState.value.players[0].symbol;
+
+   }
+   console.log(gameState.value);
+}
+
+const calculateWinningCombos = () => {
     const board = gameState.value.board;
     if (board[0] === board[1] && board[1] === board[2]) {
-        gameState.value.gameActive = false;
+     endGame();
         
     }
     if (board[3] === board[4] && board[4] === board[5]) {
-        gameState.value.gameActive = false;
+        endGame();
        
     }
     if (board[6] === board[7] && board[7] === board[8]) {
-        gameState.value.gameActive = false;
+        endGame();
        
     }
     if (board[0] === board[3] && board[3] === board[6]) {
-        gameState.value.gameActive = false;
+        endGame();
         
     }
     if (board[1] === board[4] && board[4] === board[7]) {
-        gameState.value.gameActive = false;
         
+        endGame();
     }
     if (board[2] === board[5] && board[5] === board[8]) {
-        gameState.value.gameActive = false;
+        endGame();
         
     }
     if (board[0] === board[4] && board[4] === board[8]) {
-        gameState.value.gameActive = false;
+        endGame();
         
     }
     if (board[2] === board[4] && board[4] === board[6]) {
-        gameState.value.gameActive = false;
+        endGame();
     }
 
 }
-
-
 
 
 const markSquare = (i:number) => {
@@ -83,9 +100,8 @@ const markSquare = (i:number) => {
         gameState.value.currentPlayer = 'X'
     }
 
-    console.log(gameState.value);
-
-    
+    console.log(gameState.value);   
+    calculateWinningCombos();
 }
 
 const newGame = () => {
@@ -107,6 +123,7 @@ const newGame = () => {
     </div>
     <div class="gameover" v-if="gameState.gameActive === false">
         <p>Game over</p>
+        <p v-if="gameState.winner.name !== '' ">The winner is {{ gameState.winner.name }} a.k.a {{ gameState.winner.symbol }}</p>
         <button @click="newGame">Play again</button>
     </div>
 
