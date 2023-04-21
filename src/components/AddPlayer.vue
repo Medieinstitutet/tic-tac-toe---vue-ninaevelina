@@ -19,28 +19,11 @@ const name = ref("");
 
 
 const emit = defineEmits(["addPlayer"])
-/*
-const addPlayer = () => {
-    emit('addPlayer', player.value, symbol.value);
-    player.value = "";
-    symbol.value = "";*/
-    //players.value.push(new Player(player))
-    //console.log(player.value);
-   // console.log(players.value);
-   /* if (gameState.value.players[0].symbol === 'X') {
-        gameState.value.players[1].symbol === 'O';
-    }*/
-/*
-    if (players.value[0].symbol === 'X') {
-        symbol.value === 'O';
-    }*/
 
 
-
-//}
-
-const handleClick = (name: string) => {
-    emit('addPlayer', name);
+const handleClick = (pName: string) => {
+    emit('addPlayer', pName);
+    name.value = "";
 }
 
 </script>
@@ -48,7 +31,6 @@ const handleClick = (name: string) => {
 <template>
     <form @submit.prevent="handleClick(name)">
     <input v-model="name" type="text"/>
-   <!--- <input v-model="symbol" type="text"/> -->
     <button>+</button>
     </form>
 </template>
