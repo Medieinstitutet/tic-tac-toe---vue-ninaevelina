@@ -12,14 +12,9 @@ const gameState = ref<GameBoardState>({
 });
 
 const players = ref(gameState.value.players);
-/*
-function setToLS(players: Player[]) {
-    localStorage.setItem("players", JSON.stringify(players));
-}*/
+
 
 const submitPlayer = (player: string) => {
-   // players.value.push(new Player(player, symbol));
-    //setToLS(gameState.value.players);
     let symbol = 'X';
 
     if (gameState.value.players.length > 0) {
@@ -28,34 +23,10 @@ const submitPlayer = (player: string) => {
 
     gameState.value.players.push((new Player(player, symbol)));
     console.log(gameState.value.players);
-/*
-    if (gameState.value.players.length === 1) {
-        gameState.value.players.push(new Player(player, 'O'));
-    }*/
-/*
-    if (gameState.value.players.length === 1 && gameState.value.players[0].symbol === 'X') {
-       gameState.value.players.push((new Player(player, '0')));
-       gameState.value.players.push(new Player(player, symbol));
-       console.log(gameState.value.players);
-       //gameState.value.players[1].symb === 'O';
-    }
-*/
-   //console.log(gameState.value.players);
-/*
-    if (gameState.value.players[0].symbol === 'X') {
-        gameState.value.players[1].symbol === 'O';
-    };*/
-    //console.log(players);
-   // gameState.value.players.push(new Player(player, symbol));
-    //console.log(gameState.value.players);
 
 
 }
-/*
-const choosePlayer = () => {
-    const player = gameState.value.currentPlayer;
-    console.log(player);
-}*/
+
 
 const startGame = () => {
     if (gameState.value.players.length === 2) {
@@ -99,21 +70,11 @@ const calculateWinner = () => {
 
 }
 
-//const board = ref(gameState.value.board);
-//const playerSymbol = ref(gameState.value.players);
+
 
 
 const markSquare = (i:number) => {
-   /* const gameBoard = board.value.slice();
-    gameBoard[i] = playerSymbol.value;
-    board.value = gameBoard;
-    playerSymbol.value === 'X' ? (playerSymbol.value = 'O') : (playerSymbol.value = 'X');
-    console.log(gameState.value.currentPlayer);
-    gameState.value.board[i] = playerSymbol.value;
-    calculateWinner();*/
-    //const gameBoard = gameState.value.board.slice();
-    //gameState.value.players[i].symbol
-    //const playerSymbol = gameState.value.players[i].symbol;
+  
     gameState.value.board[i] = gameState.value.currentPlayer;
     if (gameState.value.currentPlayer === 'X') {
         gameState.value.currentPlayer = 'O'
@@ -122,23 +83,9 @@ const markSquare = (i:number) => {
         gameState.value.currentPlayer = 'X'
     }
 
-   
-    //gameState.value.players[i].symbol;
     console.log(gameState.value);
 
     
-    //gameBoard = players.value[i]
-    //const gameBoard = board.value.slice();
-    //console.log(gameBoard);
-    
-    //board.value = gameBoard;
-    //console.log(gameState.value.players[i]);
-
-   
-    //gameState.value.board[i] = playerSymbol[i];
-    //console.log(gameBoard);
-    //gameState.value.players[i].symbol === 'X' ? (playerSymbol.symbol = 'O') : (playerSymbol.symbol = 'X');
-    //console.log(playerSymbol[i]);
 }
 
 const newGame = () => {
