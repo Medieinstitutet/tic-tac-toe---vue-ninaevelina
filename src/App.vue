@@ -1,30 +1,43 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import AddPlayer from './components/AddPlayer.vue';
+import GameBoard from './components/GameBoard.vue';
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+ <main>
+  <h1>Tic Tac Toe</h1>
+  <div class="player-form">
+  <!--<AddPlayer></AddPlayer>-->
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <div class="gamecontainer">
+  <GameBoard></GameBoard>
+  </div>
+ </main>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+* { box-sizing: border-box;}
+#app {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  place-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+h1 {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px;
+  font-size: 6rem;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.player-form {
+display: flex;
+place-content: center;
+margin-bottom: 20px;
+}
+.gamecontainer {
+  display: flex;
+  place-content: center;
 }
 </style>
