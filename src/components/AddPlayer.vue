@@ -2,14 +2,9 @@
 
 import { ref } from 'vue';
 
-
 const name = ref("");
 
-
-
-
 const emit = defineEmits(["addPlayer"])
-
 
 const handleClick = (pName: string) => {
     emit('addPlayer', pName);
@@ -40,5 +35,4 @@ button {
     background-color: black;
     color: white;
 }
-
 </style>

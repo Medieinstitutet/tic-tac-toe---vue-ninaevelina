@@ -19,7 +19,6 @@ const players = ref(gameState.value.players);
 
 const submitPlayer = (player: string) => {
 
-    
     let symbol = 'X';
 
     if (gameState.value.players.length > 0) {
@@ -29,7 +28,6 @@ const submitPlayer = (player: string) => {
 
     gameState.value.players.push((new Player(player, symbol)));
     console.log(gameState.value.players);
-
 
 }
 
@@ -52,7 +50,7 @@ const endGame = () => {
 const calculateWinningCombos = () => {
     const board = gameState.value.board;
     if (board[0] === board[1] && board[1] === board[2]) {
-     endGame();
+        endGame();
         
     }
     if (board[3] === board[4] && board[4] === board[5]) {
@@ -68,7 +66,6 @@ const calculateWinningCombos = () => {
         
     }
     if (board[1] === board[4] && board[4] === board[7]) {
-        
         endGame();
     }
     if (board[2] === board[5] && board[5] === board[8]) {
@@ -85,10 +82,8 @@ const calculateWinningCombos = () => {
     if (gameState.value.drawCount > 8) {
         gameState.value.isDraw = true;
         gameState.value.gameActive = false;
-        //endGame();
+        
     }
-
-
 
 }
 
@@ -132,10 +127,7 @@ const newGame = () => {
         <p v-if="gameState.isDraw === true"> It's a draw!</p>
         <p v-if="gameState.winner.name !== ''">The winner is {{ gameState.winner.name }} a.k.a {{ gameState.winner.symbol }}</p>
         <button @click="newGame">Play again</button>
-    </div>
-
-    
-  
+    </div>  
 </template>
 
 <style scoped>
